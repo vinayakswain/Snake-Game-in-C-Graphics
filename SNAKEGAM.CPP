@@ -28,7 +28,7 @@ clrscr();
 initgraph(&a,&b,"");
 r1=50+random(450);
 r2=50+random(350);
-rectangle
+
 do
 {
 ch=getch();
@@ -43,12 +43,28 @@ void snake()
 while(kbhit()==0)
 {
 int i;
+
 sprintf(scoretext,"%d\n",c);
 food();
-for(i=0;i<n;i++)
+for(i=0; i<n; i++)
 {
-rectangle(x[i][0],x[i][1],x[i][2],x[i][3]);
+    if(i == 0)
+    {
+        setcolor(RED);               // Head border color
+        setfillstyle(SOLID_FILL, RED);  // Head fill color
+    }
+    else
+    {
+        setcolor(GREEN);             // Body border color
+        setfillstyle(SOLID_FILL, GREEN); // Body fill color
+    }
+
+    rectangle(x[i][0], x[i][1], x[i][2], x[i][3]);
+
+    // Fill inside of rectangle (middle point inside rectangle)
+    floodfill((x[i][0] + x[i][2]) / 2, (x[i][1] + x[i][3]) / 2, getcolor());
 }
+
 if (ch==77)
 {
 set();
@@ -73,7 +89,30 @@ set();
 x[0][1]+=10;
 x[0][3]+=10;
 }
-if(x[0][0]==r1 && x[0][1]==r2)
+setcolor(WHITE);
+rectangle(1,1,630,470); //boundary
+//boundary touch
+if (x[0][0] <= 1 || x[0][2] >= 630 || x[0][1] <= 1 || x[0][3] >= 470)
+{
+    settextstyle(1,0,4);
+    outtextxy(90,200,"Game Over : Boundary touched");
+    getch(); // wait for key press
+    exit(0); // terminate program
+}
+//self touch
+for (int t = 1; t < n; t++)
+{
+    if (x[0][0] == x[t][0] && x[0][1] == x[t][1])
+    {
+	settextstyle(1, 0, 4);
+	outtextxy(100, 200, "Self Poisoned - Game Over");
+	getch();
+	exit(0);
+    }
+}
+
+
+if(x[0][0]==r1 && x[0][1]==r2)  //food eating
 {
 n++;
 c+=10;
@@ -84,9 +123,10 @@ r2=50+random(350);
 delay(timer);
 cleardevice();
 settextstyle(1,0,4);
-rectangle(1,15,110,50);
-outtextxy(2,10,"score:");
-outtextxy(90,10,scoretext);
+setcolor(YELLOW);
+rectangle(500,15,628,50);
+outtextxy(505,10,"score:");
+outtextxy(590,10,scoretext);
 }
 }
 
@@ -105,6 +145,10 @@ void food()
 {
 r1=r1-r1%10;
 r2=r2-r2%10;
-rectangle(r1,r2,r1+10,r2+10);
+settextstyle(0,0,2);
+setcolor(LIGHTRED);
+char heart[2]={3,'\0'};
+outtextxy(r1,r2,heart);
+//rectangle(r1,r2,r1+10,r2+10);
 
 }
