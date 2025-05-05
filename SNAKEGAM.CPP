@@ -1,9 +1,11 @@
 
+
 #include<conio.h>
 #include<stdio.h>
 #include<graphics.h>
 #include<dos.h>
 #include<stdlib.h>
+
 void snake();
 void set();
 void food();
@@ -29,6 +31,22 @@ initgraph(&a,&b,"");
 r1=50+random(450);
 r2=50+random(350);
 
+settextstyle(1,0,9);
+outtextxy(45,120,"Snake Game");
+settextstyle(2,0,7);
+outtextxy(80,240,"Hit any Button to Start playing the Game!");
+settextstyle(7,0,2);
+outtextxy(40,280,"Controls:");
+settextstyle(7,0,1);
+outtextxy(40,300,"Use the Arrow Keys to move the snake:");
+
+outtextxy(40,320,"Right Arrow (>) to Move Right");
+
+outtextxy(40,340,"Left Arrow (<) to Move Left");
+
+outtextxy(40,360,"Up Arrow (^) to Move Up");
+
+outtextxy(40,380,"Down Arrow to Move Down");
 do
 {
 ch=getch();
@@ -50,13 +68,13 @@ for(i=0; i<n; i++)
 {
     if(i == 0)
     {
-        setcolor(RED);               // Head border color
-        setfillstyle(SOLID_FILL, RED);  // Head fill color
+	setcolor(RED);               // Head border color
+	setfillstyle(SOLID_FILL, RED);  // Head fill color
     }
     else
     {
-        setcolor(GREEN);             // Body border color
-        setfillstyle(SOLID_FILL, GREEN); // Body fill color
+	setcolor(GREEN);             // Body border color
+	setfillstyle(SOLID_FILL, GREEN); // Body fill color
     }
 
     rectangle(x[i][0], x[i][1], x[i][2], x[i][3]);
@@ -122,11 +140,11 @@ r2=50+random(350);
 }
 delay(timer);
 cleardevice();
-settextstyle(1,0,4);
+settextstyle(2,0,6);
 setcolor(YELLOW);
 rectangle(500,15,628,50);
-outtextxy(505,10,"score:");
-outtextxy(590,10,scoretext);
+outtextxy(505,20,"score:");
+outtextxy(570,20,scoretext);
 }
 }
 
