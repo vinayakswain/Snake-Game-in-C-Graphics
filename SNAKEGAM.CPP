@@ -9,6 +9,7 @@
 void snake();
 void set();
 void food();
+void resetGame();
 int ch;
 int n=3;
 int timer=120;
@@ -47,6 +48,10 @@ outtextxy(40,340,"Left Arrow (<) to Move Left");
 outtextxy(40,360,"Up Arrow (^) to Move Up");
 
 outtextxy(40,380,"Down Arrow to Move Down");
+
+//char down[2]={24,'\0'}; //Null terminator
+//outtextxy(50,50,down);
+
 do
 {
 ch=getch();
@@ -114,8 +119,8 @@ if (x[0][0] <= 1 || x[0][2] >= 630 || x[0][1] <= 1 || x[0][3] >= 470)
 {
     settextstyle(1,0,4);
     outtextxy(90,200,"Game Over : Boundary touched");
-    getch(); // wait for key press
-    exit(0); // terminate program
+	resetGame(); // restart the game
+		continue;
 }
 //self touch
 for (int t = 1; t < n; t++)
@@ -124,8 +129,9 @@ for (int t = 1; t < n; t++)
     {
 	settextstyle(1, 0, 4);
 	outtextxy(100, 200, "Self Poisoned - Game Over");
-	getch();
-	exit(0);
+	resetGame();  //restart the game
+	continue;
+
     }
 }
 
@@ -165,8 +171,28 @@ r1=r1-r1%10;
 r2=r2-r2%10;
 settextstyle(0,0,2);
 setcolor(LIGHTRED);
-char heart[2]={3,'\0'};
+char heart[2]={3,'\0'}; //Null terminator
 outtextxy(r1,r2,heart);
 //rectangle(r1,r2,r1+10,r2+10);
 
+}
+void resetGame()
+{
+    n = 3;
+    c = 0;
+    timer = 120;
+    x[0][0] = 100; x[0][1] = 100; x[0][2] = 110; x[0][3] = 110;
+    x[1][0] = 90;  x[1][1] = 100; x[1][2] = 100; x[1][3] = 110;
+    x[2][0] = 80;  x[2][1] = 100; x[2][2] = 90;  x[2][3] = 110;
+
+    r1 = 50 + random(450);
+    r2 = 50 + random(350);
+
+    // show message and wait
+    settextstyle(2, 0, 6);
+    outtextxy(95, 250, "Game Over! Press any key to restart...");
+    outtextxy(95, 270, "Your Score is:");
+    outtextxy(240, 270,scoretext);
+    getch();
+    cleardevice();
 }
