@@ -21,7 +21,9 @@ A classic Snake Game implemented in C language using the graphics.h library. Des
 🎨 Uses BGI graphics for drawing, coloring, and text output
 
 ⚙️ Requirements
-Turbo C++ Compiler or DOSBox
+Turbo C++ Compiler 
+or 
+DOSBox
 
 Legacy libraries:
 
